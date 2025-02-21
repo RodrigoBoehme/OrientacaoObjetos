@@ -1,18 +1,16 @@
 export class hexacast{
     private name:string;
-    class:string='Hexacast';
-    def:number=20;
-    focus:number=80;
-    atk:number=20;
-    maxhp:number=20;
-    dex:number=40
+    private class:string='Hexacast';
+    private def:number=20;
+    private focus:number=80;
+    private atk:number=20;
+    private maxhp:number=20;
+    private dex:number=40
 
     constructor(nomeHexa:string){
         this.name=nomeHexa
     }
 }
-const hexaa=new hexacast()
-hexaa.
 
 export class spheromancer{
     name:string;
@@ -30,7 +28,7 @@ export class triblader{
     
 }
 export class pentafist{
-    name:
+    name:string;
 }
 
 export class quadroguard{
