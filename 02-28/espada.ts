@@ -2,6 +2,7 @@ export class Espada {
     private name: string = 'Espada de Diamante';
     private durabilidade: number;
     private dano: number;
+    private type:string='weapon'
     private broken: boolean = false;
 
     constructor(durability: number, damage: number) {
@@ -11,6 +12,7 @@ export class Espada {
 
     setName(nome: string) { this.name = nome }
 
+    getType():string{return this.type}
     getName(): string { return this.name }
     getDurability(): number { return this.durabilidade }
     getDamage(): number { return this.dano }
