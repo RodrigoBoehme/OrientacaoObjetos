@@ -15,5 +15,3 @@ export class Varinha{
         console.log(`Varinha de ${this.madeira} com nucleo de ${this.nucleo} e tamanho ${this.tamanho}`)
     }
 }
-const varinha1= new Varinha
-varinha1.getMadeira()

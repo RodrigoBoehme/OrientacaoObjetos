@@ -3,7 +3,7 @@ import { Bloco } from "./bloco";
 
 export class Mundo {
     private name: string;
-    private blocos: Array<any>;
+    private blocos: Array<Bloco>;
     private entidade:Array<any>;
     private tipo:string='World'
 

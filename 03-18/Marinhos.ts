@@ -19,3 +19,5 @@ let asdkjafndsjfhs=new Baleia('jlkjfljsdnf',50000)
 let asdafad=new Animal('Dogo',4)
 realizacao(asdkjafndsjfhs)
 realizacao(asdafad)
+
+console.log(typeof(asdafad))
