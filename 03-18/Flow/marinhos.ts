@@ -6,49 +6,58 @@ export class Baleia extends Animal {
     }
 
     private come(): void {
-        console.log(`${this.getNome()} (${this.especie}) está comendo krill.`);
+        this.fome += 5
+        console.log(`${this.getNome()} (${this.especie}) está comendo krill.  (Fome: ${this.fome})`);
     }
 
     private nada(): void {
-        console.log(`${this.getNome()} (${this.especie}) está nadando no oceano.`);
+        this.fome--
+        console.log(`${this.getNome()} (${this.especie}) está nadando no oceano. (Fome: ${this.fome})`);
     }
 
     private buscarRecurso(): void {
-        console.log(`${this.getNome()} (${this.especie}) está filtrando água para comer .`);
+        this.fome += 2
+        console.log(`${this.getNome()} (${this.especie}) está filtrando água para comer . (Fome: ${this.fome})`);
     }
 
     private emitirSom(): void {
-        console.log(`${this.getNome()} (${this.especie}) está cantando!`);
+        this.fome--
+        console.log(`${this.getNome()} (${this.especie}) está cantando! (Fome: ${this.fome})`);
     }
 
     private mover(): void {
-        console.log(`${this.getNome()} (${this.especie}) está nadando lentamente.`);
+        this.fome -= 2
+        console.log(`${this.getNome()} (${this.especie}) está nadando lentamente. (Fome: ${this.fome})`);
     }
 
     verificarFome(): void {
         console.log(`${this.getNome()} (${this.especie}) está com fome nível ${this.getFome()}.`);
     }
 
-    acaoAleatoria():void{
-        let opcean=Math.floor(Math.random()*6+1)
+    acaoAleatoria(): void {
+        let opcean = Math.floor(Math.random() * 6 + 1)
 
-        if(opcean===3){this.emitirSom()}
-        
-        if(opcean===1){this.mover()}
-        
-        if(opcean===4){this.buscarRecurso()}
-        
-        if(opcean===2){this.come()}
-        
-        if(opcean===5){this.nada()}
+        if (this.fome <= 20) { this.come() }
+        else {
+            if (opcean === 3) { this.emitirSom() }
 
-        if(opcean===6){this.verificarFome()}
+            if (opcean === 1) { this.mover() }
+
+            if (opcean === 4) { this.buscarRecurso() }
+
+            if (opcean === 2) { this.come() }
+
+            if (opcean === 5) { this.nada() }
+
+            if (opcean === 6) { this.verificarFome() }
+        }
     }
 
-    interagir(sla:Animal):void{
-        console.log(`${this.getNome()}(${this.especie}) molhou  ${sla.getNome()} (${sla.getSpecie()})`)
+    interagir(sla: Animal): void {
+        console.log(`${this.getNome()}(${this.especie}) molhou  ${sla.getNome()} (${sla.getSpecie()})`);
+        this.fome--
     }
-    
+
 }
 
 //let baleialeia=new Baleia('Leia')

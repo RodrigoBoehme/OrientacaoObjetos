@@ -2,7 +2,7 @@
 export class Animal {
     private nome: string;
     protected especie: string;
-    private fome: number;
+    protected fome: number;
 
 
 
@@ -13,7 +13,8 @@ export class Animal {
 
     }
     interagir(sla:Animal):void{
-        console.log(`${this.getNome()}(${this.getSpecie()}) interagiu com ${sla.getNome()} (${sla.getSpecie()})`)
+        this.fome--
+        console.log(`${this.getNome()}(${this.getSpecie()}) interagiu com ${sla.getNome()} (${sla.getSpecie()}) (Fome: ${this.fome})`)
     }
     getNome(): string {
 
@@ -28,6 +29,7 @@ export class Animal {
     
     acaoAleatoria():void{
         console.log(`Nada ${this.nome}a fazer`)
+        this.fome--
     }
 
     
