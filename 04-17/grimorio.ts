@@ -1,5 +1,5 @@
 export interface Grimorio{
 
-    consultarFeitico(input:string):string
+    consultarFeitico(input:string):void
 
 }

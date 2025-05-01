@@ -5,5 +5,5 @@ export abstract class guardian extends magicCreatures{
     castSpell(): number {
         return this.power
     }
-    abstract protectSecret
+    abstract protectSecret()
 }
