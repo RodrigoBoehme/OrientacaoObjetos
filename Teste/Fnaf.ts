@@ -30,36 +30,37 @@ export class Animatronic {
         else (this.currentPosition = 1)
     }
 
+    increaseDifficultLevel(): void {
+        if (this.Level > 20) { this.Level += 1 }
+        else (console.log('Max Level alredy'))
+    }
+    decreaseDiffiucltLevel(): void {
+        if (this.Level > 0) { this.Level -= 1 }
+        else (console.log('Min Level Alredy'))
+    }
+
     movementCheck(): void {
-        if (this.currentPosition > this.Path.length) {
+        if (this.currentPosition === this.Path.length-1) {
             this.Jumpscare()
-         }
-         else{
-        this.chanceMovement()
-         }
+        }
+        else {
+            this.chanceMovement()
+        }
+    }
+    checkPosition(): void {
+        console.log(this.Path[this.currentPosition].getName())
     }
 
     chanceMovement(): void {
         let movementChance = Math.floor(Math.random() * 21)
         if (this.Level >= movementChance) {
-            if (this.RND("F", 5, 1) === 5) {
                 if (this.currentPosition < this.Path.length) {
-                    if (this.currentPosition < this.Path.length - 1) {
-                        if (this.RND() === 1) {
-                            this.currentPosition += 2
-                        }
-                        else {
-                            this.currentPosition++
-                        }
-                    }
-                    else{
-                        this.currentPosition--
-                    }
-                    
-                }
+                    this.currentPosition++
             }
         }
     }
+
+
 }
 export class AnimatronicV2 extends Animatronic {
 
@@ -102,14 +103,28 @@ export class Door extends Room {
 
     isDoorClosed(): boolean { return this.Status }
 }
-/*
-let PortaD=new Door('Porta Direita Escritorio')
 
-let Bonnie=new Animatronic('Bonnie',0,[],PortaD)
-Bonnie.AtkDoor.openDoor()
-console.log(PortaD.isDoorClosed())
-Bonnie.AtkDoor.closeDoor()
+let PortaD = new Door('Porta Direita Escritorio')
+let Cam1 = new Room('Palco')
+let Cam2 = new Room('Partes e Servicos')
+let Cam3 = new Room('Salao')
+let Cam4 = new Room('Corredor Esquerdo')
+let Cam5 = new Room('Sala Limpeza')
+let Cam6 = new Room('Lateral Esquerda Escritorio')
+let Bonnie = new Animatronic('Bonnie', 20, [Cam1, Cam2, Cam3, Cam4, Cam5, Cam6, PortaD], PortaD)
 
 
-console.log(PortaD.isDoorClosed())
-*/
+
+function loopLevel(Turns: number = 10) {
+
+    for (let i = 0; i < Turns; i++) {
+        if(Math.floor(Math.random()*51)>40){
+            PortaD.closeDoor()
+        }else{PortaD.openDoor()}
+
+        Bonnie.movementCheck()
+        Bonnie.checkPosition()
+    }
+}
+PortaD.openDoor()
+loopLevel()
