@@ -7,18 +7,30 @@ export class Animatronic {
     AtkDoor: Door
     private currentPosition: number = 0
     private gameState: boolean = false
-    private firstMovement: boolean = false
+    private currentRoom: Room
+    private animatronic: Animatronic
 
     constructor(name: string, Level: number = 0, Path: Array<Room>, AttckDoor: Door) {
         this.name = name
         this.Level = Level
         this.Path = Path
         this.AtkDoor = AttckDoor
+        this.animatronic = this
+        this.currentRoom=Path[0]
     }
 
     getGameState(): boolean { return this.gameState }
 
+    updateRoom(): void {
+        this.currentRoom.removeAnimatronic(this)
+        this.currentRoom = this.Path[this.currentPosition]
 
+        this.currentRoom.addAnimatronic(this)
+    }
+
+    getRoom(): Room {
+        return this.currentRoom
+    }
     Jumpscare(): void {
         if (this.AtkDoor.isDoorClosed()) {
             console.log('Jumpscare')
@@ -49,6 +61,7 @@ export class Animatronic {
 
     movementCheck(): void {
         this.chanceMovement()
+        this.updateRoom()
 
     }
     checkPosition(): void {
@@ -60,20 +73,20 @@ export class Animatronic {
         else {
             let movementChance = Math.floor(Math.random() * 21)
             if (this.Level >= movementChance) {
-                
-                
-                if(this.currentPosition>1 && RND("F",8)>5){
+
+
+                if (this.currentPosition > 1 && RND("F", 8) > 5) {
                     this.currentPosition--
                     console.log(-1)
-                } 
-                else if(this.currentPosition <this.Path.length-2&&RND('F',6)>3){
+                }
+                else if (this.currentPosition < this.Path.length - 2 && RND('F', 6) > 3) {
 
                     console.log('+2')
-                    this.currentPosition+=2
+                    this.currentPosition += 2
                 }
-                
 
-                else{
+
+                else {
                     this.currentPosition++
                     console.log('+1')
                 }
@@ -104,6 +117,7 @@ export class AnimatronicV2 extends Animatronic {
 export class Room {
     private roomName: string
     protected canJumpscare: boolean = false
+    private animatronics: Array<Animatronic> = []
 
     constructor(Nome: string) {
         this.roomName = Nome
@@ -111,6 +125,33 @@ export class Room {
     getName(): string { return this.roomName }
     getAttackPossibility(): boolean { return this.canJumpscare }
 
+    removeAnimatronic(B: Animatronic) {
+
+        if (this.animatronics.length > 0) {
+
+            for (let i = 0; i < this.animatronics.length; i++) {
+                if (this.animatronics[i].getName() === B.getName()) {
+                    this.animatronics.splice(i, 1)
+                }
+            }
+        }
+
+        /*
+        if (this.animatronics.length > 1) {
+            for (let i = 0; i < this.animatronics.length; i++) {
+                if (this.roomName !== this.animatronics[i].getRoom().getName())
+                    this.animatronics.splice(i, 1)
+            }
+        }*/
+    }
+    addAnimatronic(A: Animatronic) {
+        this.animatronics.push(A)
+    }
+    anyInside(): void {
+        for (let i = 0; i < this.animatronics.length; i++) {
+            console.log(this.animatronics[i].getName())
+        }
+    }
 }
 
 export class Door extends Room {
@@ -126,13 +167,20 @@ export class Door extends Room {
 }
 
 let PortaE = new Door('Porta Esquerda Escritorio')
-let Cam1 = new Room('Palco')
-let Cam2 = new Room('Partes e Servicos')
-let Cam3 = new Room('Salao')
-let Cam4 = new Room('Corredor Esquerdo')
-let Cam5 = new Room('Sala Limpeza')
-let Cam6 = new Room('Lateral Esquerda Escritorio')
-let Bonnie = new Animatronic('Bonnie', 20, [Cam1, Cam3, Cam2, Cam4, Cam5, Cam6, PortaE], PortaE)
+let PortaD=new Door('Porta Direita Escritorio')
+let Cam1a = new Room('Palco')
+let Cam5 = new Room('Partes e Servicos')
+let Cam1b = new Room('Salao')
+let Cam1c=new Room('Pirate Cove')
+let Cam2a = new Room('Corredor Esquerdo')
+let Cam4a=new Room('Corredor Direito')
+let Cam3 = new Room('Sala Limpeza')
+let Cam2b = new Room('Lateral Esquerda Escritorio')
+let Cam4b=new Room('Lateral Direita Escritorio')
+let Cam7=new Room('Banheiros')
+let Cam6=new Room('Cozinha')
+
+let Bonnie = new Animatronic('Bonnie', 20, [], PortaE)
 
 
 
@@ -145,10 +193,10 @@ function loopLevel(Turns: number = 10) {
                 PortaE.closeDoor()
             } else { PortaE.openDoor() }
         }
-        console.log('PortaE esta com a porta fechada? '+PortaE.isDoorClosed())
+        console.log('Porta E esta com a porta fechada? ' + PortaE.isDoorClosed())
         console.log('Turno ' + i)
-        
-        Bonnie.checkPosition()
+
+        // Bonnie.checkPosition()
 
         Bonnie.movementCheck()
         if (Bonnie.getGameState()) {
@@ -156,5 +204,11 @@ function loopLevel(Turns: number = 10) {
         }
     }
 }
+let salas = []
+Cam1a.addAnimatronic(Bonnie)
 PortaE.openDoor()
-loopLevel(20)
+loopLevel(10)
+
+/* for(let cams in salas){
+    salas[cams].anyInside()
+}*/
