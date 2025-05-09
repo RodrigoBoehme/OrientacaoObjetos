@@ -75,7 +75,7 @@ export class Animatronic {
             if (this.Level >= movementChance) {
 
 
-                if (this.currentPosition > 1 && RND("F", 8) > 5) {
+                if (this.currentPosition > 1 && RND("F", 9) > 5) {
                     this.currentPosition--
                     console.log(-1)
                 }

@@ -1,65 +1,48 @@
-export class Carta{
-    nome:string
-    tipo:string
+import { Baralho } from "./baralho"
+import { Carta } from "./carta"
+import { CartaItem } from "./cartaitem"
+import { CartaPokemonio } from "./cartamonstro"
 
 
-    exibirCarta():void{
-        console.log(this)
+
+
+
+
+export class Tabuleiro {
+    private DeckP1: Baralho
+    private DeckP2: Baralho
+    private pilhaDescarte: Array<Carta> = []
+    private mao: Array<Carta>
+    private mao2: Array<Carta>
+    private turno: number = 0
+
+    constructor(Deck: Baralho, Deck2: Baralho) {
+        this.DeckP1 = Deck
+        this.DeckP2 = Deck2
+        this.DeckP1.embaralharDeck()
+        this.DeckP2.embaralharDeck()
     }
-}
-
-export class CartaPokemonio extends Carta{
-    atk:number
-    hp:number
-}
-
-export class CartaEnergia extends Carta{
-    value:number
-}
-
-export class CartaItem extends Carta{
-    efect:string
-}
-
-export class CartaTreinador extends Carta{
-    descricao:string
-}
-
-export class Baralho{
-    deck:Array<Carta>=[]
-
-    embaralharDeck():void{
-        this.embaralha(this.deck)
-    }
-    comprarCarta():Carta|undefined{return this.deck.pop()}
-
-    visualizarTopo():Carta|undefined{return this.deck[this.deck.length-1]}
-    private embaralha(lista:Array<Carta>) {
-
-        for (let indice = lista.length; indice; indice--) {
-    
-            const indiceAleatorio = Math.floor(Math.random() * indice);
-            
-            // guarda de um índice aleatório da lista
-            const elemento = lista[indice - 1];
-            
-            lista[indice - 1] = lista[indiceAleatorio];
-            
-            lista[indiceAleatorio] = elemento;
+    protected adicionarCartaMao(): void {
+        if(this.turno%2==1){
+            this.mao.push(this.DeckP1.comprarCarta())
+        }
+        else{
+            this.mao2.push(this.DeckP2.comprarCarta())
         }
     }
+
+    descartarCarta(Descarte: Carta) { this.pilhaDescarte.push(Descarte) }
+
+    exibirMao():void{
+        if(this.turno%2==1){
+            console.log(this.mao)
+        }else{
+            console.log(this.mao2)
+        }
+     }
+    exibirDescarte():void{
+        console.log(this.pilhaDescarte)
+    }
     
-}
-
-
-export class Tabuleiro{
-    pilhaDescarte:Array<Carta>=[]
-    
-    adicionarCartaMao(){}
-
-    descartarCarta(Descarte:Carta){this.pilhaDescarte.push(Descarte)}
-
-    exibirMao(){}
-    exibirDescarte(){}
 }
 
