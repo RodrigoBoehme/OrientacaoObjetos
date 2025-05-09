@@ -156,13 +156,17 @@ export class Room {
 
 export class Door extends Room {
     private Status: boolean = false
+    private light:boolean=false
     constructor(NomeDaPorta: string) {
         super(NomeDaPorta)
         this.canJumpscare = true
     }
-    openDoor(): void { this.Status = false }
-    closeDoor(): void { this.Status = true }
+    openDoor(): void { this.Status = true }
+    closeDoor(): void { this.Status = false }
+    lightOn():void{this.light=true}
+    lightOff():void{this.light=false}
 
+    isLightOn():boolean{return this.light}
     isDoorClosed(): boolean { return this.Status }
 }
 
