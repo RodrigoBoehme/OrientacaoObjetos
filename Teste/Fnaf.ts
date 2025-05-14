@@ -1,5 +1,5 @@
 import { RND } from "./Random"
-
+let gameState:boolean=false;
 export class Animatronic {
     private name: string
     private Level: number
@@ -16,7 +16,7 @@ export class Animatronic {
         this.Path = Path
         this.AtkDoor = AttckDoor
         this.animatronic = this
-        this.currentRoom=Path[0]
+        this.currentRoom = Path[0]
     }
 
     getGameState(): boolean { return this.gameState }
@@ -34,14 +34,11 @@ export class Animatronic {
     Jumpscare(): void {
         if (this.AtkDoor.isDoorClosed()) {
             console.log('Jumpscare')
-            this.gameState = true
+            gameState = true
         }
         else (this.currentPosition = 1)
     }
-    resetGameState() {
-        this.gameState = false
-        console.log('Game has been reseted')
-    }
+
     setDifficultLevel(level: number) {
         if (level > 20 || level < 0) {
             console.log('Invalid Number')
@@ -156,60 +153,72 @@ export class Room {
 
 export class Door extends Room {
     private Status: boolean = false
-    private light:boolean=false
+    private light: boolean = false
     constructor(NomeDaPorta: string) {
         super(NomeDaPorta)
         this.canJumpscare = true
     }
     openDoor(): void { this.Status = true }
     closeDoor(): void { this.Status = false }
-    lightOn():void{this.light=true}
-    lightOff():void{this.light=false}
+    lightOn(): void { this.light = true }
+    lightOff(): void { this.light = false }
 
-    isLightOn():boolean{return this.light}
+    isLightOn(): boolean { return this.light }
     isDoorClosed(): boolean { return this.Status }
 }
 
 let PortaE = new Door('Porta Esquerda Escritorio')
-let PortaD=new Door('Porta Direita Escritorio')
+let PortaD = new Door('Porta Direita Escritorio')
 let Cam1a = new Room('Palco')
 let Cam5 = new Room('Partes e Servicos')
 let Cam1b = new Room('Salao')
-let Cam1c=new Room('Pirate Cove')
+let Cam1c = new Room('Pirate Cove')
 let Cam2a = new Room('Corredor Esquerdo')
-let Cam4a=new Room('Corredor Direito')
+let Cam4a = new Room('Corredor Direito')
 let Cam3 = new Room('Sala Limpeza')
 let Cam2b = new Room('Lateral Esquerda Escritorio')
-let Cam4b=new Room('Lateral Direita Escritorio')
-let Cam7=new Room('Banheiros')
-let Cam6=new Room('Cozinha')
+let Cam4b = new Room('Lateral Direita Escritorio')
+let Cam7 = new Room('Banheiros')
+let Cam6 = new Room('Cozinha')
 
-let Bonnie = new Animatronic('Bonnie', 20, [], PortaE)
+let Bonnie = new Animatronic('Bonnie', 20, [Cam1a,Cam1b,Cam5,Cam2a,Cam3,Cam2b,PortaE], PortaE)
+let Chica=new Animatronic('Chica',10,[Cam1a,Cam1b,Cam7,Cam6,Cam4a,Cam4b,PortaD],PortaD)
 
-
+function resetGameState() {
+    gameState = false
+    console.log('Game has been reseted')
+}
 
 function loopLevel(Turns: number = 10) {
+    let power = 1000
 
     for (let i = 0; i < Turns; i++) {
-
+        
         if (RND('F', 20) > 10) {
             if (Math.floor(Math.random() * 51) > 25) {
                 PortaE.closeDoor()
             } else { PortaE.openDoor() }
         }
-        console.log('Porta E esta com a porta fechada? ' + PortaE.isDoorClosed())
+
+        if (RND('F', 20) > 10) {
+            if (Math.floor(Math.random() * 51) > 25) {
+                PortaD.closeDoor()
+            } else { PortaD.openDoor() }
+        }
+        // console.log('Porta E esta com a porta fechada? ' + PortaE.isDoorClosed())
         console.log('Turno ' + i)
 
         // Bonnie.checkPosition()
 
         Bonnie.movementCheck()
-        if (Bonnie.getGameState()) {
+        if (gameState) {
             i = Turns
         }
     }
 }
 let salas = []
 Cam1a.addAnimatronic(Bonnie)
+Cam1a.addAnimatronic(Chica)
 PortaE.openDoor()
 loopLevel(10)
 
