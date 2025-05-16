@@ -33,7 +33,7 @@ export class Animatronic {
     }
     Jumpscare(): void {
         if (this.AtkDoor.isDoorClosed()) {
-            console.log('Jumpscare')
+            console.log(this.name+' has Jumpscared')
             gameState = true
         }
         else (this.currentPosition = 1)
@@ -192,28 +192,29 @@ function resetGameState() {
 function loopLevel(Turns: number = 10) {
     let power = 1000
 
+    function randomDoorActivity(door:Door){
+            if (RND('F', 20) > 10) {
+            if (Math.floor(Math.random() * 51) > 25) {
+                door.closeDoor()
+            } else { door.openDoor() }
+        }
+        if(door.isDoorClosed()){power--}
+}
+
     for (let i = 0; i < Turns; i++) {
         
-        if (RND('F', 20) > 10) {
-            if (Math.floor(Math.random() * 51) > 25) {
-                PortaE.closeDoor()
-            } else { PortaE.openDoor() }
-        }
-
-        if (RND('F', 20) > 10) {
-            if (Math.floor(Math.random() * 51) > 25) {
-                PortaD.closeDoor()
-            } else { PortaD.openDoor() }
-        }
+        randomDoorActivity(PortaD);
+        randomDoorActivity(PortaE)
         // console.log('Porta E esta com a porta fechada? ' + PortaE.isDoorClosed())
         console.log('Turno ' + i)
 
         // Bonnie.checkPosition()
 
-        Bonnie.movementCheck()
+        Bonnie.movementCheck();
         if (gameState) {
-            i = Turns
+            i = Turns;
         }
+        power--;
     }
 }
 let salas = []
@@ -225,3 +226,4 @@ loopLevel(10)
 /* for(let cams in salas){
     salas[cams].anyInside()
 }*/
+
