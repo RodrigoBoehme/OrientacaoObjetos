@@ -1,21 +1,32 @@
 import { BaralhoUno } from "./BaralhoUno";
 import { CartaUno } from "./Carta";
+import { MesaUno } from "./mesa";
 const readline = require('readline-sync');
 
 export abstract class Jogador {
     mao: Array<CartaUno>
-    baralhoMesa:BaralhoUno
+    baralho:BaralhoUno
+    mesa:MesaUno
+    
 
     numeroDeCartas(): number { return this.mao.length }
 
     comprarCarta():void{
-        this.mao.push(this.baralhoMesa.comprarCarta())
+        this.mao.push(this.baralho.comprarCarta())
+    }
+
+        setMesa(Mesa:MesaUno):void{
+        this.mesa=Mesa;
+    }
+    turno(){
+
     }
 
     isEmpty():boolean{return this.mao.length===0}
 
-    jogarCarta(cartaDoTopo:CartaUno): CartaUno | undefined {
+    jogarCarta(): CartaUno | undefined {
         if (this.mao.length > 0) {
+            let cartasJogaveis:Array<CartaUno>;
             for (let i = 0; i < this.mao.length; i++) {
                 console.log(i + 1 + " " + this.mao[i].getCor()+" "+this.mao[i].getValor())
             }
@@ -30,6 +41,10 @@ export abstract class Jogador {
 
 export class Computador extends Jogador{
 
+
+    jogarCarta(): CartaUno | undefined {
+        return
+    }
 
     jogarCartaCPU(cartaDoTopo:CartaUno): CartaUno {
         let opcao:number=-1;

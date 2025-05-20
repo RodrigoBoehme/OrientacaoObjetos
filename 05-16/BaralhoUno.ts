@@ -2,11 +2,13 @@ import { CartaUno, arrayCartas } from "./Carta";
 
 export class BaralhoUno {
     private cartas: Array<CartaUno>
+    
 
 
     constructor() {
         this.cartas = arrayCartas;
     }
+
 
     resetarBaralho(): void {
         this.cartas = arrayCartas;
@@ -22,7 +24,7 @@ export class BaralhoUno {
     public comprarCarta(): CartaUno | undefined {
         if (this.cartas.length > 0) {
             return this.cartas.pop();
-        } else{console.log("Nao ha Cartas")}
+        } else { console.log("Nao ha Cartas") }
     }
 
 
@@ -45,7 +47,7 @@ export class BaralhoUno {
 
 let baralho1 = new BaralhoUno()
 
-while(!baralho1.isEmpty()){
+while (!baralho1.isEmpty()) {
     console.log(baralho1.comprarCarta())
 }
 

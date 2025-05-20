@@ -4,11 +4,26 @@
 export class CartaUno {
     private color: string;
     private value: string;
+    private rotacao:boolean=false;
+    private pontuacao:number;
 
     constructor(Cor: string, Tipo: string) {
         this.color = Cor;
         this.value=Tipo;
+        if(this.value=="Inverter"){
+            this.rotacao=true;
+        }
+        if(Cor=="Preta"){
+            this.pontuacao=50
+        }
+        else if(Tipo=="Inverter"||Tipo=="Bloquear"||Tipo=="+2"){
+            this.pontuacao=20
+        }
+        else{
+            this.pontuacao=Number(Tipo)
+        }
     }
+    public getRotacao():boolean{return this.rotacao}
     public getCor(): string { return this.color }
     public getValor(): string { return this.value }
 
