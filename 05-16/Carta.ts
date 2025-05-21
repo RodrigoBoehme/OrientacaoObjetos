@@ -143,4 +143,3 @@ export let arrayCartas:Array<CartaUno>=[
     new CartaUno("Preta","MudarCor")
     
 ];
-

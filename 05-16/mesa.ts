@@ -4,7 +4,7 @@ import { Jogador } from "./Player";
 
 export class MesaUno {
     baralho: BaralhoUno
-    cartasMesa: Array<CartaUno> = []
+    cartasMesa: Array<CartaUno|undefined> = []
     arrayPlayers: Array<Jogador>
     jogando:boolean=true
     sentidoDoJogo:boolean=false
@@ -22,7 +22,9 @@ export class MesaUno {
         while(this.jogando){
             this.arrayPlayers[0].turno()
 
-            if(this.cartaTopoDaMesa().getRotacao()){
+            if(this.cartaTopoDaMesa()===undefined){
+                this.cartasMesa.pop()
+            }else if(this.cartaTopoDaMesa().getRotacao()){
                 this.sentidoDoJogo=!this.sentidoDoJogo;
             }
             if(this.sentidoDoJogo){

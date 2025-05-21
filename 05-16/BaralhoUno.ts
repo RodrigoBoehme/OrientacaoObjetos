@@ -50,4 +50,3 @@ let baralho1 = new BaralhoUno()
 while (!baralho1.isEmpty()) {
     console.log(baralho1.comprarCarta())
 }
-
