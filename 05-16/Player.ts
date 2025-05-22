@@ -19,7 +19,9 @@ export abstract class Jogador {
         this.mesa=Mesa;
     }
     turno(){
-
+        // let opcTurno=readline.questionInt("1- Jogar uma Carta\n 2- comprar")
+        // if(opcTurno==1){
+        //}
     }
 
     isEmpty():boolean{return this.mao.length===0}
@@ -48,6 +50,10 @@ jogarCarta(): CartaUno {
             console.log(i)
             console.log(cartasJogaveis[i])
         }
+
+        let opt=readline.questionInt("Qual carta voces escolhe")
+
+
         // escolha aqui 
 
         
@@ -81,6 +87,7 @@ export class Computador extends Jogador{
         
         if(opcao>this.mao.length||opcao<0){
             this.comprarCarta()
+
         }
 
         return this.mao.splice(opcao,1)[0]

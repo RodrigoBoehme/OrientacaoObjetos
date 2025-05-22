@@ -6,6 +6,7 @@ export class CartaUno {
     private value: string;
     private rotacao:boolean=false;
     private pontuacao:number;
+    private bloquea:boolean=false;
 
     constructor(Cor: string, Tipo: string) {
         this.color = Cor;
@@ -22,10 +23,14 @@ export class CartaUno {
         else{
             this.pontuacao=Number(Tipo)
         }
+        if(Tipo=="Bloquear"){
+            this.bloquea=true;
+        }
     }
     public getRotacao():boolean{return this.rotacao}
     public getCor(): string { return this.color }
     public getValor(): string { return this.value }
+    public getBlock():boolean{return this.bloquea}
 
     
 

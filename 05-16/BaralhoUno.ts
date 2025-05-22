@@ -27,6 +27,9 @@ export class BaralhoUno {
         } else { console.log("Nao ha Cartas") }
     }
 
+    retornarCarta(CartaASerRetornada):void{
+        this.cartas.unshift(CartaASerRetornada)
+    }
 
     private embaralha(lista: Array<CartaUno>) {
 

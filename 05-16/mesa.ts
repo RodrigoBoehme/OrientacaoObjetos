@@ -8,6 +8,8 @@ export class MesaUno {
     arrayPlayers: Array<Jogador>
     jogando:boolean=true
     sentidoDoJogo:boolean=false
+    comeco=true;
+    bloqueio:boolean=false
 
     constructor(Jogadores: Array<Jogador>, Baralho: BaralhoUno) {
         this.baralho = Baralho;
@@ -19,9 +21,32 @@ export class MesaUno {
     }
 
     Jogo():void{
-        while(this.jogando){
-            this.arrayPlayers[0].turno()
+        if(this.comeco){
+            this.baralho.embaralharCartas();
+            for(let i=0;i<7;i++){
+                for(let a=0;a<this.arrayPlayers.length;a++){
+                    this.arrayPlayers[a].comprarCarta()
+                }
 
+
+            }
+            this.cartasMesa.push(this.baralho.comprarCarta())
+            while(this.cartaTopoDaMesa().getValor()==("Inverter"||"+4"||"Bloquear"||"+2"||"MudarCor")){
+                this.baralho.retornarCarta(this.cartasMesa.pop)
+                this.cartasMesa.push(this.baralho.comprarCarta())
+
+            }
+            this.comeco=false;
+        }
+
+
+        while(this.jogando){
+            if(!this.bloqueio){
+            this.arrayPlayers[0].turno()
+            if(this.cartaTopoDaMesa().getBlock()){
+            this.bloqueio=this.cartaTopoDaMesa().getBlock();
+            } else{this.bloqueio=!this.bloqueio}
+        }
             if(this.cartaTopoDaMesa()===undefined){
                 this.cartasMesa.pop()
             }else if(this.cartaTopoDaMesa().getRotacao()){
