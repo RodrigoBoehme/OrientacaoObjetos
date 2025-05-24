@@ -50,6 +50,6 @@ export class BaralhoUno {
 
 let baralho1 = new BaralhoUno()
 
-while (!baralho1.isEmpty()) {
-    console.log(baralho1.comprarCarta())
-}
+//while (!baralho1.isEmpty()) {
+//    console.log(baralho1.comprarCarta())
+//}

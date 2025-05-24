@@ -31,7 +31,7 @@ export class MesaUno {
 
             }
             this.cartasMesa.push(this.baralho.comprarCarta())
-            while(this.cartaTopoDaMesa().getValor()==("Inverter"||"+4"||"Bloquear"||"+2"||"MudarCor")){
+            while(this.cartaTopoDaMesa().getValor()=="Inverter"||this.cartaTopoDaMesa().getValor()=="+4"||this.cartaTopoDaMesa().getValor()=="Bloquear"||this.cartaTopoDaMesa().getValor()=="+2"||this.cartaTopoDaMesa().getValor()=="MudarCor"){
                 this.baralho.retornarCarta(this.cartasMesa.pop)
                 this.cartasMesa.push(this.baralho.comprarCarta())
 
