@@ -23,13 +23,25 @@ class Pessoa implements Relacionavel{
     return 
 }
 }
+class conjuge extends Pessoa{
+
+
+}
+
+
+class PessoaAdotada {
+
+}
+
 
 class ArvoreGenealogica{
     pessoaRaiz:Pessoa
-
-    constructor(pessoaRaiz){
+    pessoas:Array<Pessoa>=[]
+    constructor(pessoaRaiz:Pessoa){
         this.pessoaRaiz=pessoaRaiz;
+        
     }
+    
     
     buscarPessonha(Nome:String):Pessoa|undefined{
         return 
@@ -45,5 +57,5 @@ let meuPai=new Pessoa("Ricardo","Boehme",new Date("1988/07/17"),"M")
 let meuAvo=new Pessoa("Heinz","Boehme",new Date("unknow"),"M")
 console.log(eu.dataNacimento)
 familiaB.adicionarFilhos(meuPai,eu)
-
+familiaB
 
