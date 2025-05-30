@@ -10,10 +10,9 @@ chamados de subtree
 
 nó (node): um elemento de uma arvore que possui um valor e zero ou mais filhos
 raiz (root): o no no topo da arvore que liga todos os outros no alcançaveis
-filho (child)
-pai (parent)
-folha leaf
-subarvore subtree
+filho (child):
+folha leaf:
+subarvore subtree: um conjunto de nos e aresta dentro de uma arvore
 
 
 nivel(level) a distancia entre a raie e um no o nivel da raiz é zero
@@ -23,11 +22,11 @@ uma folha a altura da arvore é igual ao maior nivel de seus nós
 
 */
 
-class node<T>{
+export class node<T>{
     protected value:T;
     protected children:node<T>[]=[]
 
-    constructor(value:T){
+    constructor(value?:T){
         this.value=value
     }
 
@@ -44,12 +43,16 @@ class node<T>{
 const rootNode=new node("A")
 const nodeB=new node("B")
 const nodeC=new node("C")
+const nodeD=new node("D")
 
 rootNode.addChild(nodeB);
 rootNode.addChild(nodeC);
 
+nodeB.addChild(nodeD)
+
 console.log(rootNode.getChildren())
 console.log(nodeB.getChildren())
+console.log(nodeD.getChildren())
 
 /*  tipos de arvore
 
